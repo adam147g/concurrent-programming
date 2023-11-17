@@ -9,17 +9,17 @@ public class MyInt {
             this.wait();
         }
         value = 1;
-        System.out.println("producent - notfy - "+ value);
+        System.out.println("producent - notfy - " + value);
         this.notify();
     }
 
     public synchronized void consument() throws InterruptedException {
         while (value == 0) {
-            System.out.println("consument  - wait - "+ value);
+            System.out.println("consument  - wait - " + value);
             this.wait();
         }
         value = 0;
-        System.out.println("consument - notfy - "+ value);
+        System.out.println("consument - notfy - " + value);
         this.notify();
     }
 }
