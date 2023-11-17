@@ -1,5 +1,8 @@
 package lab1;
 
+// Stwórz dwa wątki, z których jeden inkrementuje 1000 razy podaną liczbę, a drugi tę samą dekrementuje 100 razy
+// Bez synchronizacji!!
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Thread myThread = new MyThread();
