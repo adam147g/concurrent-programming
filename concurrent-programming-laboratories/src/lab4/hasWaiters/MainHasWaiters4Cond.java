@@ -1,11 +1,12 @@
-package lab3.ProducerConsumer_2_cond;
+package lab4.hasWaiters;
 
 import java.util.ArrayList;
 
-//Rozwiązanie problemu Producenta/Konsumenta na 2 condition
+//Rozwiązanie problemu Producenta/Konsumenta z użyciem funkcji hasWaiters()
 
-public class MainZaglodzenie2Cond {
-    public static void main(String[] args) {
+
+public class MainHasWaiters4Cond {
+    public static void main(String[] args) throws InterruptedException {
         MyInt number = new MyInt();
         ArrayList<Thread> threads = new ArrayList<>();
         int numProducents = number.numProducents;
@@ -30,6 +31,8 @@ public class MainZaglodzenie2Cond {
         }
         for (int i = 0; i < numConsuments + numProducents; i++) {
             threads.get(i).start();
+//            Thread.sleep(100);
+
         }
         for (int i = 0; i < numConsuments + numProducents; i++) {
             try {
