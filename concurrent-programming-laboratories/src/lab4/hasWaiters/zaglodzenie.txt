@@ -1,0 +1,21 @@
+Ogólny zamysł:
+Gdy SUPER producent zostaje wzbudzony, może zostać wyprzedzony przez producentów, którzy wyprodukują
+mniej, przez co jego szanse na produkcję znacznie maleją
+
+2-Producentów, 1-Konsument
+P1 chce dodać 10, czeka na firstProducerCondition
+P2 chce dodać 3, czeka na locku
+K1 konsumuje 3
+
+Bufor: 20
+obecny: 15
+K1 konsumuje 3 i wzbudza P1  - bufor 12
+P1 próbuje się dostać do lockam, ale wyprzedza go P2
+P2 sprawdza warunek hasWaiters i przechodzi dalej, bo P1 już nie ma na firstProducerCondition
+P2 produkuje 3 - bufor 15
+możliwe opcje:
+    locka dostaje P1, który nie może produkować i znowu się zawiesza na firstProducerCondition - jest zagładzany
+    locka dostaje K1, produkuje 3 - bufor 15 - wracamy do sytuacji z początku - P1 może być zagładzany
+    locka dostaje P2, produkuje - więcej razy będzie produkował od P1 - P1 zagładzany
+
+

@@ -13,10 +13,7 @@ public class MyInt {
     public int numProducents = 4;
     public int numConsuments = 4;
     private final ReentrantLock lock = new ReentrantLock();
-    private final List<Integer> producersWaitTimes = new ArrayList<>(Collections.nCopies(numProducents, 0));
-    ;
-    private final List<Integer> consumersWaitTimes = new ArrayList<>(Collections.nCopies(numConsuments, 0));
-    ;
+
     private final Condition otherProducerCondition = lock.newCondition();
     private final Condition otherConsumerCondition = lock.newCondition();
     private final Condition firstProducerCondition = lock.newCondition();
@@ -24,14 +21,14 @@ public class MyInt {
 
     public void producent(int randomInt, int id) throws InterruptedException {
         try {
+            // bufor 19
+            // P1(10) P2(8)
             lock.lock();
             while (hasWaiters(firstProducerCondition)) {
-                producersWaitTimes.set(id, producersWaitTimes.get(id) + 1);
-                otherProducerCondition.await();
+                otherProducerCondition.await(); //
             }
-            producersWaitTimes.set(id, 0);
             while (value + randomInt > full) {
-                firstProducerCondition.await();
+                firstProducerCondition.await(); //
             }
             value += randomInt;
             if (id == numProducents - 1) {
@@ -49,14 +46,13 @@ public class MyInt {
 
     public synchronized void consument(int randomInt, int id) throws InterruptedException {
         try {
+            //
             lock.lock();
             while (hasWaiters(firstConsumerCondition)) {
-                consumersWaitTimes.set(id, consumersWaitTimes.get(id) + 1);
-                otherConsumerCondition.await();
+                otherConsumerCondition.await(); //
             }
-            consumersWaitTimes.set(id, 0);
             while (value - randomInt < empty) {
-                this.firstConsumerCondition.await();
+                firstConsumerCondition.await(); // K1(4)- walczy K2(6)
             }
             value -= randomInt;
             if (id == numConsuments - 1) {
