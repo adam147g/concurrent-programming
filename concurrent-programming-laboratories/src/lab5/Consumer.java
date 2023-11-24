@@ -22,7 +22,7 @@ public class Consumer extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (!number.timesLists.isEnd()) {
             try {
                 if (haveConsumeDigit) {
                     number.consument(consume, id);

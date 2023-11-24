@@ -9,8 +9,8 @@ K1 konsumuje 3
 
 Bufor: 20
 obecny: 15
-K1 konsumuje 3 i wzbudza P1  - bufor 12
-P1 próbuje się dostać do lockam, ale wyprzedza go P2
+K1 konsumuje 3 i wzbudza P1 - bufor 12
+P1 próbuje się dostać do locka, ale wyprzedza go P2
 P2 sprawdza warunek hasWaiters i przechodzi dalej, bo P1 już nie ma na firstProducerCondition
 P2 produkuje 3 - bufor 15
 możliwe opcje:

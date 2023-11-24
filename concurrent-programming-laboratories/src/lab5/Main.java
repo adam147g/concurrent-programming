@@ -29,9 +29,11 @@ public class Main {
             }
             threads.add(threadConsument);
         }
+
+        number.setStartTime();
+
         for (int i = 0; i < numConsuments + numProducents; i++) {
             threads.get(i).start();
-//            Thread.sleep(100);
         }
         for (int i = 0; i < numConsuments + numProducents; i++) {
             try {

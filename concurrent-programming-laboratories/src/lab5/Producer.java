@@ -24,7 +24,7 @@ public class Producer extends Thread {
 
     @Override
     public void run() {
-        while (true) {
+        while (!number.timesLists.isEnd()) {
             try {
                 if (haveProduceDigit) {
                     number.producent(produce, id);

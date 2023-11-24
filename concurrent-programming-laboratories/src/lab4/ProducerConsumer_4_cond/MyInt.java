@@ -1,5 +1,7 @@
 package lab4.ProducerConsumer_4_cond;
 
+import lab5.TimesLists;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,30 +14,31 @@ public class MyInt {
     public int empty = 0;
     public int numProducents = 4;
     public int numConsuments = 4;
+    private TimesLists timesLists = new TimesLists(numProducents, numConsuments);
     private final ReentrantLock lock = new ReentrantLock();
-    private final List<Integer> producersWaitTimes = new ArrayList<>(Collections.nCopies(numProducents, 0));
-    ;
-    private final List<Integer> consumersWaitTimes = new ArrayList<>(Collections.nCopies(numConsuments, 0));
-    ;
     private final Condition otherProducerCondition = lock.newCondition();
     private final Condition otherConsumerCondition = lock.newCondition();
     private final Condition firstProducerCondition = lock.newCondition();
     private final Condition firstConsumerCondition = lock.newCondition();
     private boolean isFirstElementQueueProducerFull = false;
     private boolean isFirstElementQueueConsumerFull = false;
+    public void setStartTime(){
+        timesLists.setStartTime();
+    }
 
     public void producent(int randomInt, int id) throws InterruptedException {
         try {
             lock.lock();
-            while (this.isFirstElementQueueProducerFull) {
-                producersWaitTimes.set(id, producersWaitTimes.get(id) + 1);
+            while (isFirstElementQueueProducerFull) {
+                timesLists.addProducerTime(id);
                 otherProducerCondition.await();
             }
-            producersWaitTimes.set(id, 0);
+
             while (value + randomInt > full) {
                 isFirstElementQueueProducerFull = true;
                 firstProducerCondition.await();
             }
+//            timesLists.resetProducerTime(id);
             value += randomInt;
             if (id == numProducents - 1) {
                 System.out.println("\t SUPER Producent !!! - " + id + " wartość: " + randomInt + " obecny: " + value);
@@ -54,15 +57,16 @@ public class MyInt {
     public synchronized void consument(int randomInt, int id) throws InterruptedException {
         try {
             lock.lock();
-            while (this.isFirstElementQueueConsumerFull) {
-                consumersWaitTimes.set(id, consumersWaitTimes.get(id) + 1);
+            while (isFirstElementQueueConsumerFull) {
+                timesLists.addConsumerTime(id);
                 otherConsumerCondition.await();
             }
-            consumersWaitTimes.set(id, 0);
+
             while (value - randomInt < empty) {
-                this.isFirstElementQueueConsumerFull = true;
-                this.firstConsumerCondition.await();
+                isFirstElementQueueConsumerFull = true;
+                firstConsumerCondition.await();
             }
+//            timesLists.resetConsumerTime(id);
             value -= randomInt;
             if (id == numConsuments - 1) {
                 System.out.println("\t SUPER Konsument !!! - " + id + " wartość: " + randomInt + " obecny: " + value);

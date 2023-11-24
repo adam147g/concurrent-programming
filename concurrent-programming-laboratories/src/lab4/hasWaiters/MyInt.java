@@ -52,7 +52,7 @@ public class MyInt {
                 otherConsumerCondition.await(); //
             }
             while (value - randomInt < empty) {
-                firstConsumerCondition.await(); // K1(4)- walczy K2(6)
+                firstConsumerCondition.await(); // K1(4) K2(6)
             }
             value -= randomInt;
             if (id == numConsuments - 1) {
