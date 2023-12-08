@@ -1,3 +1,5 @@
 concurrent-programming-laboratories/.idea/
 concurrent-programming-laboratories/out/
-**/.zip
+**/*.zip
+**/*.docx
+concurrent-programming-laboratories/*.csv
