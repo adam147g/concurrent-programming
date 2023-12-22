@@ -5,7 +5,7 @@ import java.util.ArrayList;
 //Rozwiązanie problemu Producenta/Konsumenta z użyciem funkcji hasWaiters()
 
 
-public class MainHasWaiters4Cond {
+public class MainHasWaiters {
     public static void main(String[] args) throws InterruptedException {
         MyInt number = new MyInt();
         ArrayList<Thread> threads = new ArrayList<>();
