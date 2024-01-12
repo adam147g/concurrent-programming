@@ -1,0 +1,33 @@
+Producenci, konsumenci produkują 1-5, Super kons, SUPER prod po 10
+Bufor: 0-20, start z 0
+Zamysł jest taki, że gdy obecny stan buforu jest poniżej połowy (10), to SUPER konsument nie jest w stanie konsumować i
+pozostaje na producerCondition.await();
+Gdy nasta szansa dla niego (bufor >= 10) i wykona się producerCondition.signal();, SUPER konsumnet teoretycznie mógłby
+skonsumować, to może zostać wyprzedzony przez innego konsumenta, który zmniejszy bufor do <10 i nawet gdy jako kolejny
+zostanie wzbudzony SUPER konsument - nie będzie mógł skonsumować
+W ten sposób SUPER konsument zostaje zagładzany.
+
+
+
+
+
+
+
+
+
+
+
+Produce 5,  5
+Produce 4,  9
+Consume 10, 9- nie może, pozostaje na wait()
+Consume 2,  7
+Produce 2,  9
+Consume 3,  6
+Consume 10, 6- nie może, pozostaje na wait()
+Produce 2,  8
+Produce 10, 18 - Tym razem Produce 10 udało się produkować
+Consume 5,  13
+Consume 5,  8
+Produce 1,  9
+Consume 10, 9- nie może, pozostaje na wait()
+W ten sposób mimo, że Consume 10 miał szanse się dostać, wciąż zostaje zagładzany

@@ -1,0 +1,22 @@
+Bufor 20, max porcja 10
+
+Konfiguracja startowa:  W buforze 0. C10 czeka na firstConsumer,
+P1 na firstProducer
+P1 produkuje 1. W buforze 1.
+Sygnalizuje firstConsumer i otherProducer
+C10 wychodzi z warunku firstConsumer, ale czeka na locku, bo wszedł C2.
+C2 sprawdza firstConsumer.hasWaiters(), dostaje FALSE!
+Nie może skonsumować, więc czeka na firstConsumer.
+P1 produkuje 1. W buforze 2, sygnalizuje firstConsumer i otherProducer
+Przychodzi C3 i dzieje się to samo, co z C3.
+C10 dostaje locka i wraca na firstConsumer. Teraz mamy 3 wątki (C2, C2 i C10) na firstConsumer.
+bufor = 2
+
+P10 produkuje 10 (B = 12). Sygnalizuje firstConsumer.
+Sygnał dostaje C2 (zjada 2). B = 10
+P10 produkuje 10 (B = 20)
+Sygnał dostaje C3 (zjada 3). B = 17
+
+P7 chce produkować 7, ale nie może, bo prawie pełny bufor i wisi.
+C10 czeka na firstConsumer, ale nie dostaje sygnału i wisi.
+C2 i C3 czekają na otherConsumers i wiszą

@@ -1,0 +1,9 @@
+hasWaiters sprawdza stan w CHWILI OBECNEJ, czy ktoś czeka na condition
+igoruje wątki, które otrzymały signal na firstProducerCondition i teraz czekają na uzyskanie locka.
+
+może nastąpić sytuacja, gdy mając 2 producentów, (P1 na firstProducerCondition, P2 czeka na locku)
+P1 zostaje wzbudzony i próbuje się dostać do locka, jednak dostaje się P2.
+Wtedy P2 sprawdzając hasWaiters stwierdza, że może iść dalej, bo P1 nie czeka w TEJ CHWILI na firstProducerCondition
+P2 chce za dużo wyprodukować i wykonuje linijkę firstProducerCondition.await();
+Kolejnym krokiem P1 zostaje wpuszczony do locka i widząc, że chce za dużo wyprodukować, również wykonuje
+firstProducerCondition.await(); i obaj czekają na tym samym Condition.

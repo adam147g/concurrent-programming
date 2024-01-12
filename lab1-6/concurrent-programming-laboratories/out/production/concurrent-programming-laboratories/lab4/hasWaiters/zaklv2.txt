@@ -1,0 +1,22 @@
+Bufor max: 20
+obecny: 19
+2 - Producentów, 2 - Konsumentów
+z działania programu, nastąpiło, że
+K1 i K2 - obaj zatrzymali się na firstConsumerCondition
+P1 i P2 - poza lockiem
+firstConsumerCondition otrzymało sygnał - K1 lub K2 może walczyć o dostęp do locka
+    załóżmy, że K1.
+Locka otrzymuje P1, chce wyprodukować 10, ale nie może i zatrzymuje się na firstProducerCondition
+Locka otrzymuje P2, (ma potencjalną wartość do produkcji: 8).
+Sprawdza hasWaiters i zatrzymuje się na otherProducerCondition
+Locka otrzymuje K1 i chce konsumować 4. Konsumuje i wychodzi z locka, ale wzbudza P1
+bufor: 15
+P1 nie może produkować, więc pozostaje na firstProducerCondition
+K1 powraca do locka z chęcią konsumowania 4, ale po sprawdzeniu hasWaiters zatrzymuje się
+na otherConsumerCondition
+
+Stan końcowy:
+K1 - otherConsumerCondition.await();
+K2 - firstConsumerCondition.await();
+P1 - firstProducerCondition.await();
+P2 - otherProducerCondition.await();
