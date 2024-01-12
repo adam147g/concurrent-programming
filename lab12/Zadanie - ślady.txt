@@ -1,0 +1,24 @@
+Przykład nowego wywodu
+P1, P2, P5b, P5a, P6
+
+a)
+A = {P1, P2, P5b, P5a, P6}
+
+b)
+D = sym{(P1, P2), (P2, P5a), (P2, P6), (P1, P5a), (P1, P5b)}
+
+c)
+FNF = [P1][P2 P5b][P5a P6]
+
+
+P1  S
+P2  T1 - T1
+P5b T1 - T2 - T1
+P5a T1 - T2 - e1
+P6  e1 - T2 - e1
+    e1 - e2 - e1
+
+
+
+
+
